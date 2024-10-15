@@ -22,7 +22,6 @@ namespace MusıcShop.Controllers
 
         private readonly ISingleSongBusiness _business;
 
-
         private readonly IMapper _mapper;
 
         public SingleSongController(ISingleSongBusiness business, IMapper mapper)
