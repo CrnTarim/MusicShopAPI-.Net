@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusıcShop", "MusıcShop\MusıcShop.csproj", "{A67D0476-CB2F-4BB7-B4BF-274B8CF27602}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{8C8245F1-2CC0-4C04-8E9F-F61D77158B4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Data.Entities", "MusicShop.Data.Entities\MusicShop.Data.Entities.csproj", "{4E1BC90C-3950-4715-94C4-A9DD514F8511}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Data.Dto", "MusicShop.Data.Dto\MusicShop.Data.Dto.csproj", "{4D261224-FE2F-4ADB-B31D-E1887336A9E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Data.Context", "MusicShop.Data.Context\MusicShop.Data.Context.csproj", "{2AAA0372-02A8-4C8B-83F6-67FE213022BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1C5DA124-C77B-41CB-BC9B-63D29076572D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Common", "MusicShop.Common\MusicShop.Common.csproj", "{26D4845D-3D31-416C-B197-A094FC71FBCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfraStructure", "InfraStructure", "{65C78EBC-2614-477B-8CFC-3C07DC3179C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Infrastructure.Interface", "MusicShop.Infrastructure.Interface\MusicShop.Infrastructure.Interface.csproj", "{4FC9B24D-2E90-42A0-9379-BAB432D51638}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicShop.Infrastructure.Concrete", "MusicShop.Infrastructure.Concrete\MusicShop.Infrastructure.Concrete.csproj", "{873C454C-710E-421F-901F-1B386FCC2973}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{E98CF4BA-E873-4A27-A667-BC5771E1D3A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicShop.Business.Interface", "MusicShop.Business.Interface\MusicShop.Business.Interface.csproj", "{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicShop.Business.Concrete", "MusicShop.Business.Concrete\MusicShop.Business.Concrete.csproj", "{096B5708-B8FF-44F0-AC3C-230B8D95019B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A67D0476-CB2F-4BB7-B4BF-274B8CF27602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67D0476-CB2F-4BB7-B4BF-274B8CF27602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67D0476-CB2F-4BB7-B4BF-274B8CF27602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67D0476-CB2F-4BB7-B4BF-274B8CF27602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1BC90C-3950-4715-94C4-A9DD514F8511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1BC90C-3950-4715-94C4-A9DD514F8511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1BC90C-3950-4715-94C4-A9DD514F8511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1BC90C-3950-4715-94C4-A9DD514F8511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D261224-FE2F-4ADB-B31D-E1887336A9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D261224-FE2F-4ADB-B31D-E1887336A9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D261224-FE2F-4ADB-B31D-E1887336A9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D261224-FE2F-4ADB-B31D-E1887336A9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AAA0372-02A8-4C8B-83F6-67FE213022BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AAA0372-02A8-4C8B-83F6-67FE213022BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AAA0372-02A8-4C8B-83F6-67FE213022BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AAA0372-02A8-4C8B-83F6-67FE213022BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D4845D-3D31-416C-B197-A094FC71FBCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D4845D-3D31-416C-B197-A094FC71FBCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D4845D-3D31-416C-B197-A094FC71FBCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D4845D-3D31-416C-B197-A094FC71FBCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC9B24D-2E90-42A0-9379-BAB432D51638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC9B24D-2E90-42A0-9379-BAB432D51638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC9B24D-2E90-42A0-9379-BAB432D51638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC9B24D-2E90-42A0-9379-BAB432D51638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{873C454C-710E-421F-901F-1B386FCC2973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873C454C-710E-421F-901F-1B386FCC2973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873C454C-710E-421F-901F-1B386FCC2973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873C454C-710E-421F-901F-1B386FCC2973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096B5708-B8FF-44F0-AC3C-230B8D95019B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096B5708-B8FF-44F0-AC3C-230B8D95019B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096B5708-B8FF-44F0-AC3C-230B8D95019B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096B5708-B8FF-44F0-AC3C-230B8D95019B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E1BC90C-3950-4715-94C4-A9DD514F8511} = {8C8245F1-2CC0-4C04-8E9F-F61D77158B4E}
+		{4D261224-FE2F-4ADB-B31D-E1887336A9E9} = {8C8245F1-2CC0-4C04-8E9F-F61D77158B4E}
+		{2AAA0372-02A8-4C8B-83F6-67FE213022BB} = {8C8245F1-2CC0-4C04-8E9F-F61D77158B4E}
+		{26D4845D-3D31-416C-B197-A094FC71FBCB} = {1C5DA124-C77B-41CB-BC9B-63D29076572D}
+		{4FC9B24D-2E90-42A0-9379-BAB432D51638} = {65C78EBC-2614-477B-8CFC-3C07DC3179C8}
+		{873C454C-710E-421F-901F-1B386FCC2973} = {65C78EBC-2614-477B-8CFC-3C07DC3179C8}
+		{752DDE17-2C9C-4F75-A0DD-0323D5AF6D99} = {E98CF4BA-E873-4A27-A667-BC5771E1D3A0}
+		{096B5708-B8FF-44F0-AC3C-230B8D95019B} = {E98CF4BA-E873-4A27-A667-BC5771E1D3A0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A33DD45-E924-4D1B-AC81-A6A7435D1A68}
+	EndGlobalSection
+EndGlobal
