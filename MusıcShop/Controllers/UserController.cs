@@ -3,18 +3,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Common.Mappers;
 using MusicShop.Data.Dto.InComing.CreationDto.User;
 using MusicShop.Data.Dto.OutComing.Song;
 using MusicShop.Data.Dto.OutComing.User;
 using MusicShop.Data.Entities.Authorization;
+using MusicShop.Data.Entities.Logging;
 using MusicShop.Data.Entities.Song;
 using MusicShop.Data.Entities.UserInfo;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using MusicShop.Business.Concrete; 
+
+
 
 namespace MusıcShop.Controllers
 {
@@ -26,13 +31,17 @@ namespace MusıcShop.Controllers
 
         public IMapper _mapper;
 
+        public LogService _logService;
+
         IConfiguration _configuration;
 
-        public UserController(IUserBusiness business, IMapper mapper,IConfiguration configuration)
+
+        public UserController(IUserBusiness business, IMapper mapper,IConfiguration configuration, LogService logService)
         {
             _business = business;
             _mapper = mapper;
             _configuration = configuration;
+            _logService = logService;
         }
 
         [HttpPost]
@@ -96,22 +105,32 @@ namespace MusıcShop.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(UserDto request)
         {
-            User user = await _business.FirstOrDefault(u => u.Email == request.Email);
-
-            // Kullanıcı bulunamadıysa hata döndür
-            if (user == null)
+            try
             {
-                return BadRequest("User Not Found");
-            }
+                User user = await _business.FirstOrDefault(u => u.Email == request.Email);
 
-            // Parolayı doğrula
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                if (user == null)
+                {
+                    await _logService.LogAsync($"Login failed for email: {request.Email}. Reason: User not found.", LogLevels.Warning);
+                    return BadRequest("User Not Found");
+                }
+
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                {
+                    await _logService.LogAsync($"Login failed for email: {request.Email}. Reason: Incorrect password.", LogLevels.Warning);
+                    return BadRequest("Wrong password");
+                }
+
+                await _logService.LogAsync($"User {user.Email} logged in successfully.", LogLevels.Information);
+                return Ok(user.Id);
+            }
+            catch (Exception ex)
             {
-                return BadRequest("Wrong password");
+                await _logService.LogErrorAsync(ex);
+                return StatusCode(500, "Internal server error");
             }
-
-            return Ok(user.Id);
         }
+
 
         private string CreateToken(User user)
         {
