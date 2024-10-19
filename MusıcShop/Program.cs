@@ -35,6 +35,13 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IBusiness<>), typeof(Business<>));
 
+builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+builder.Services.AddScoped(typeof(IUserBusiness), typeof(UserBusiness));
+
+
+builder.Services.AddScoped(typeof(IUserFavouriteSongRepository), typeof(UserFavouriteSongRepository));
+builder.Services.AddScoped(typeof(IUserFavouriteSongBusiness), typeof(UserFavouriteSongBusiness));
+
 builder.Services.AddScoped<ISingleSongBusiness, SingleSongBusiness>();
 builder.Services.AddScoped<ISingleSongRepository, SingleSongRepository>();
 

@@ -18,7 +18,9 @@ namespace MusicShop.Common.Configuration
             builder.HasOne(builder => builder.Singer)
                 .WithMany(builder => builder.SingleSongs)
                 .HasForeignKey(builder => builder.SingerId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }
