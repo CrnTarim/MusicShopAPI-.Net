@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Common.Mappers;
 using MusicShop.Data.Context.Context;
+using MusicShop.Data.Entities.MongoDB;
 using MusicShop.Infrastructure.Concrete;
 using MusicShop.Infrastructure.Interface;
+using Serilog;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -28,6 +33,7 @@ builder.Services.AddCors(options => {
                     .AllowCredentials(); // You might need this if your WebSocket server requires credentials
         });
 });
+
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -53,6 +59,23 @@ builder.Services.AddScoped<ISingerRepository, SingerRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(BaseMapper<,,,>));
+
+
+/*
+builder.Services.AddScoped<LogService>(provider =>
+    new LogService(builder.Configuration.GetConnectionString("MongoDb")));
+*/
+
+//MongoDbConfig
+
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDB"));
+
+// Repository ve Service Injection
+builder.Services.AddScoped<ILogRepository, LogRepository>();
+builder.Services.AddScoped<LogService>();
+
+
 builder.Services.AddDbContext<MusicShopContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MusicShopContext")));
 
 var app = builder.Build();
