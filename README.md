@@ -1,5 +1,9 @@
 # MusicShop Project
 
+For the latest version of this repository, visit the:  
+## [main branch](https://github.com/CrnTarim/MusicShopAPI-.Net/tree/main)
+
+
 **MusicShop** is an educational project based on .NET. The project is designed to be as simple as possible to ensure the understandability of fundamental concepts. The goals of the project are as follows:
 
 - **Effective use of N-Tier architecture**
