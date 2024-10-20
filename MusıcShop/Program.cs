@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Common.Mappers;
 using MusicShop.Data.Context.Context;
+using MusicShop.Data.Entities.MongoDB;
 using MusicShop.Infrastructure.Concrete;
 using MusicShop.Infrastructure.Interface;
 using Serilog;
@@ -59,8 +61,19 @@ builder.Services.AddScoped<ISingerRepository, SingerRepository>();
 builder.Services.AddAutoMapper(typeof(BaseMapper<,,,>));
 
 
+/*
 builder.Services.AddScoped<LogService>(provider =>
-    new LogService(builder.Configuration.GetConnectionString("MongoDb"))); // MongoDB servisini ekleyin.
+    new LogService(builder.Configuration.GetConnectionString("MongoDb")));
+*/
+
+//MongoDbConfig
+
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDB"));
+
+// Repository ve Service Injection
+builder.Services.AddScoped<ILogRepository, LogRepository>();
+builder.Services.AddScoped<LogService>();
 
 
 builder.Services.AddDbContext<MusicShopContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MusicShopContext")));

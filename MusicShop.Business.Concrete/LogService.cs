@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MusicShop.Data.Entities.Logging;
+using MusicShop.Infrastructure.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,37 +19,23 @@ namespace MusicShop.Business.Concrete
 
     public class LogService
     {
-        private readonly IMongoCollection<Log> _logs; //  using MusicShop.Data.Entities.Logging;
+        private readonly ILogRepository _logRepository;
 
-        public LogService(string connectionString)
+        public LogService(ILogRepository logRepository)
         {
-            var client = new MongoClient(connectionString); // appsetting.json 
-            var database = client.GetDatabase("musicShoplogsDB"); 
-            _logs = database.GetCollection<Log>("Logs"); 
+            _logRepository = logRepository;
         }
 
         public async Task LogAsync(string message, string level)
         {
-            var log = new Log
-            {
-                Message = message,
-                Level = level, // Artık string alıyor
-                Timestamp = DateTime.UtcNow
-            };
-
-            await _logs.InsertOneAsync(log);
+           
+            await _logRepository.LogAsync(message,level);
         }
 
         public async Task LogErrorAsync(Exception ex)
-        {
-            var log = new Log
-            {
-                Message = $"Error: {ex.Message}", 
-                Level = LogLevel.Error.ToString(),
-                Timestamp = DateTime.UtcNow
-            };
+        {         
 
-            await _logs.InsertOneAsync(log);
+            await _logRepository.LogErrorAsync(ex);
         }
     }
 }
