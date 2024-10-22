@@ -8,6 +8,7 @@ using MusicShop.Data.Dto.InComing.CreationDto.Singer;
 using MusicShop.Data.Dto.InComing.UpdateDto.Singer;
 using MusicShop.Data.Dto.OutComing.Singer;
 using MusicShop.Data.Entities.SingerInfo;
+using System.Text.Json;
 
 namespace MusıcShop.Controllers
 {
@@ -19,10 +20,13 @@ namespace MusıcShop.Controllers
 
         private readonly IMapper _mapper;
 
-        public SingerController(ISingerBusiness business, IMapper mapper) 
+        private readonly ICacheService _cacheService;
+
+        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService) 
         {
             _business = business;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
 
         [HttpPost]
@@ -72,6 +76,7 @@ namespace MusıcShop.Controllers
 
         }
 
+        /*
         [HttpGet]
         public async Task<ActionResult<List<SingerDto>>> GetSingers()
         {
@@ -81,5 +86,32 @@ namespace MusıcShop.Controllers
 
             return Ok(singerDtos);
         }
+        */
+
+        [HttpGet]
+        public async Task<ActionResult<List<SingerDto>>> GetSingers()
+        {
+           
+            var cacheKey = "singersList";
+            var cachedSingers = await _cacheService.GetAsync<List<SingerDto>>(cacheKey);
+
+            if (cachedSingers != null)
+            {
+                return Ok(cachedSingers);
+            }
+          
+            var singers = _business.GetAllAsync().ToList();   
+            var singerDtos = _mapper.Map<List<SingerDto>>(singers);
+
+            // Veriyi cache'e kaydet
+            var expirationTime = TimeSpan.FromMinutes(60); 
+            await _cacheService.SetAsync(cacheKey, singerDtos, expirationTime);
+
+            return Ok(singerDtos);
+        }
+
+
+
+
     }
 }
