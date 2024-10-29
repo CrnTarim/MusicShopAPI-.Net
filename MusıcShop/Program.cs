@@ -89,6 +89,10 @@ builder.Services.AddScoped<ILogRepository, LogRepository>();
 builder.Services.AddScoped<LogService>();
 
 
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<MessageBusiness>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
