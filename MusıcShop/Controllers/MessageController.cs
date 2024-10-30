@@ -14,7 +14,7 @@ namespace MusıcShop.Controllers
     {
         private readonly IHubContext<ChatHub> _hubContext;
         MessageBusiness _messageBusiness;
-       
+
         public MessageController(MessageBusiness messageBusiness, IHubContext<ChatHub> hubContext)
         {
             _messageBusiness = messageBusiness;
@@ -37,9 +37,9 @@ namespace MusıcShop.Controllers
             await _hubContext.Clients.User(creationDto.ReceiverId).SendAsync("ReceiveMessage", creationDto.SenderId, creationDto.Content);
             await _messageBusiness.SendMessage(message.SenderId, message.ReceiverId, message.Content);
 
-            return Ok(new { message = "Message Sent" }); 
+            return Ok(new { message = "Message Sent" });
 
-
+        }
 
 
         [HttpGet("{userId}")]
