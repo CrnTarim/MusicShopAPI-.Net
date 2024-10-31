@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MusicShop.Data.Context\MusicShop.Data.Context.csproj" />
+    <ProjectReference Include="..\MusicShop.Data.Entities\MusicShop.Data.Entities.csproj" />
     <ProjectReference Include="..\MusicShop.Infrastructure.Interface\MusicShop.Infrastructure.Interface.csproj" />
   </ItemGroup>
 
