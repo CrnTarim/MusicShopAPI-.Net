@@ -34,7 +34,7 @@ namespace MusıcShop.Controllers
                 IsRead = false
             };
 
-            await _hubContext.Clients.User(creationDto.ReceiverId).SendAsync("ReceiveMessage", creationDto.SenderId, creationDto.Content);
+            await _hubContext.Clients.User(creationDto.ReceiverId).SendAsync("ReceiveMessage", creationDto.SenderId,creationDto.ReceiverId, creationDto.Content);
             await _messageBusiness.SendMessage(message.SenderId, message.ReceiverId, message.Content);
 
             return Ok(new { message = "Message Sent" });
