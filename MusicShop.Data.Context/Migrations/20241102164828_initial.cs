@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MusicShop.Data.Context.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +44,25 @@ namespace MusicShop.Data.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SingleSongss",
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SingleSongs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -59,9 +77,9 @@ namespace MusicShop.Data.Context.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SingleSongss", x => x.Id);
+                    table.PrimaryKey("PK_SingleSongs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SingleSongss_Singers_SingerId",
+                        name: "FK_SingleSongs_Singers_SingerId",
                         column: x => x.SingerId,
                         principalTable: "Singers",
                         principalColumn: "Id",
@@ -91,9 +109,38 @@ namespace MusicShop.Data.Context.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SingleBeats_SingleSongss_SingleSongId",
+                        name: "FK_SingleBeats_SingleSongs_SingleSongId",
                         column: x => x.SingleSongId,
-                        principalTable: "SingleSongss",
+                        principalTable: "SingleSongs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserFavouriteSongs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SingleSongId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFavouriteSongs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFavouriteSongs_SingleSongs_SingleSongId",
+                        column: x => x.SingleSongId,
+                        principalTable: "SingleSongs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFavouriteSongs_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -109,9 +156,19 @@ namespace MusicShop.Data.Context.Migrations
                 column: "SingleSongId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SingleSongss_SingerId",
-                table: "SingleSongss",
+                name: "IX_SingleSongs_SingerId",
+                table: "SingleSongs",
                 column: "SingerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavouriteSongs_SingleSongId",
+                table: "UserFavouriteSongs",
+                column: "SingleSongId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavouriteSongs_UserId",
+                table: "UserFavouriteSongs",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -121,10 +178,16 @@ namespace MusicShop.Data.Context.Migrations
                 name: "SingleBeats");
 
             migrationBuilder.DropTable(
+                name: "UserFavouriteSongs");
+
+            migrationBuilder.DropTable(
                 name: "Beats");
 
             migrationBuilder.DropTable(
-                name: "SingleSongss");
+                name: "SingleSongs");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Singers");

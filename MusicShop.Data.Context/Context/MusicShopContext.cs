@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Context.Context
 {
-    public class MusicShopContext: DbContext
+    public class MusicShopContext : DbContext
     {
         public MusicShopContext(DbContextOptions<MusicShopContext> options) : base(options) { }
 
@@ -31,6 +31,10 @@ namespace MusicShop.Data.Context.Context
         public DbSet<Beat> Beats { get; set; }
 
         public DbSet<UserFavouriteSong> UserFavouriteSongs { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+
 
     }
 }

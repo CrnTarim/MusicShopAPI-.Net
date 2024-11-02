@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MusicShop.Data.Entities.Logging;
 using MusicShop.Data.Entities.MongoDB;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Infrastructure.Concrete
 {
-    public class MessageRepository : IMessageRepository
+    public class MessageRepository
     {
         private readonly IMongoCollection<Message> _messages;
 
@@ -24,25 +25,29 @@ namespace MusicShop.Infrastructure.Concrete
             _messages = database.GetCollection<Message>("Messages");
         }
 
-        public async Task<List<Message>> ReceiveMessages(string userId)
+        public async Task<List<Message>> GetMessagesByUserIdsAsync(string senderId, string receiverId)
         {
-            var messages = await _messages.Find(m => m.SenderId == userId || m.ReceiverId == userId).ToListAsync();
-            return messages;
+            return await _messages.Find(m =>
+                (m.SenderId == senderId && m.ReceiverId == receiverId) ||
+                (m.SenderId == receiverId && m.ReceiverId == senderId))
+                .ToListAsync();
         }
 
-        public async Task SendMessage(string senderId, string receiverId, string content)
+        public async Task AddMessageAsync(Message message)
         {
-            var messageInfo = new Message
-            {
-                SenderId = senderId, // Artık string olarak gönderiyoruz
-                ReceiverId = receiverId, // Artık string olarak gönderiyoruz
-                Content = content,
-                Timestamp = DateTime.UtcNow,
-                IsRead = false
-            };
-
-            await _messages.InsertOneAsync(messageInfo);
+            await _messages.InsertOneAsync(message);
         }
 
+        public async Task UpdateMessageAsync(Message message)
+        {
+            var filter = Builders<Message>.Filter.Eq(m => m.Id, message.Id);
+            await _messages.ReplaceOneAsync(filter, message);
+        }
+
+        public async Task<Message> GetMessageByIdAsync(string messageId)
+        {
+            var objectId = new ObjectId(messageId); // String'den ObjectId'ye dönüştür
+            return await _messages.Find(m => m.Id == objectId).FirstOrDefaultAsync();
+        }
     }
 }

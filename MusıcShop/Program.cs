@@ -6,6 +6,7 @@ using MusicShop.Common.Mappers;
 using MusicShop.Data.Context.Context;
 using MusicShop.Data.Entities.MongoDB;
 using MusicShop.Infrastructure.Concrete;
+using MusicShop.Infrastructure.Concrete.HubConnection;
 using MusicShop.Infrastructure.Interface;
 using Serilog;
 using StackExchange.Redis;
@@ -89,8 +90,8 @@ builder.Services.AddScoped<ILogRepository, LogRepository>();
 builder.Services.AddScoped<LogService>();
 
 
-builder.Services.AddScoped<IMessageRepository, MessageRepository>();
-builder.Services.AddScoped<MessageBusiness>();
+builder.Services.AddScoped<MessageRepository>();
+
 
 builder.Services.AddSignalR();
 

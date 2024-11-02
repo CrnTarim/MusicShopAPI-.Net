@@ -184,7 +184,7 @@ namespace MusicShop.Data.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MusicShop.Data.Entities.UserInfo.UserFavouriteSong", b =>
