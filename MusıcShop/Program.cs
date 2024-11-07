@@ -29,10 +29,10 @@ builder.Services.AddControllers()
 builder.Services.AddCors(options => {
     options.AddPolicy("MusicShopOrigins",
         builder => {
-            builder.WithOrigins("http://localhost:4200") // Replace with your frontend application's URL
+            builder.WithOrigins("http://localhost:4200") 
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials(); // You might need this if your WebSocket server requires credentials
+                    .AllowCredentials(); 
         });
 });
 

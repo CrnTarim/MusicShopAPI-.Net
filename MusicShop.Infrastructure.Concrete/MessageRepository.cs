@@ -25,29 +25,16 @@ namespace MusicShop.Infrastructure.Concrete
             _messages = database.GetCollection<Message>("Messages");
         }
 
-        public async Task<List<Message>> GetMessagesByUserIdsAsync(string senderId, string receiverId)
-        {
-            return await _messages.Find(m =>
-                (m.SenderId == senderId && m.ReceiverId == receiverId) ||
-                (m.SenderId == receiverId && m.ReceiverId == senderId))
-                .ToListAsync();
-        }
-
-        public async Task AddMessageAsync(Message message)
+        public async Task SaveMessage(Message message)
         {
             await _messages.InsertOneAsync(message);
         }
 
-        public async Task UpdateMessageAsync(Message message)
+        public async Task<List<Message>> ReceiveMessages(string userId)
         {
-            var filter = Builders<Message>.Filter.Eq(m => m.Id, message.Id);
-            await _messages.ReplaceOneAsync(filter, message);
+            var messages = await _messages.Find(m => m.SenderId == userId || m.ReceiverId == userId).ToListAsync();
+            return messages;
         }
 
-        public async Task<Message> GetMessageByIdAsync(string messageId)
-        {
-            var objectId = new ObjectId(messageId); // String'den ObjectId'ye dönüştür
-            return await _messages.Find(m => m.Id == objectId).FirstOrDefaultAsync();
-        }
     }
 }

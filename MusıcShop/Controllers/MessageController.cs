@@ -14,63 +14,43 @@ namespace MusıcShop.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly MessageRepository _messageRepository;
-        private readonly IHubContext<ChatHub> _hubContext;
+         private readonly IHubContext<ChatHub> _hubContext;
+         MessageRepository _messageRepository;
 
-        public MessageController(MessageRepository messageRepository, IHubContext<ChatHub> hubContext)
+        public MessageController(MessageRepository messageBusiness, IHubContext<ChatHub> hubContext)
         {
-            _messageRepository = messageRepository;
+            _messageRepository = messageBusiness;
             _hubContext = hubContext;
         }
 
-        // Mesaj gönderme
-        [HttpPost("send")]
-        public async Task<IActionResult> SendMessage([FromBody] CreationDtoForMessage messageDto)
-        {
-            if (messageDto == null || string.IsNullOrEmpty(messageDto.SenderId) || string.IsNullOrEmpty(messageDto.ReceiverId) || string.IsNullOrEmpty(messageDto.Content))
-            {
-                return BadRequest("SenderId, ReceiverId, and Content are required.");
-            }
 
+        [HttpPost("sendmessage")]
+        public async Task<ActionResult<object>> SendMessage([FromBody] CreationDtoForMessage creationDto)
+        {
             var message = new Message
             {
-                SenderId = messageDto.SenderId,
-                ReceiverId = messageDto.ReceiverId,
-                Content = messageDto.Content,
+                SenderId = creationDto.SenderId,
+                ReceiverId = creationDto.ReceiverId,
+                Content = creationDto.Content,
                 Timestamp = DateTime.UtcNow,
-                IsRead = false
+                
             };
 
-            await _messageRepository.AddMessageAsync(message);
+            await _messageRepository.SaveMessage(message);
 
-            // Mesajı anlık olarak gönder
-            await _hubContext.Clients.User(messageDto.ReceiverId).SendAsync("ReceiveMessage", message);
+            return Ok(new { message = "Message Sent" });
 
-            return Ok(new { Message = "Message sent successfully.", MessageId = message.Id });
         }
 
-        // Kullanıcılar arasındaki mesajları alma
-        [HttpGet("{senderId}/{receiverId}")]
-        public async Task<ActionResult<List<Message>>> GetMessages(string senderId, string receiverId)
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<List<String>>> ReceiveMessage([FromRoute] string userId)
         {
-            var messages = await _messageRepository.GetMessagesByUserIdsAsync(senderId, receiverId);
-            return Ok(messages);
+            List<Message> messages = await _messageRepository.ReceiveMessages(userId);
+            List<string> contents = messages.Select(m => m.Content).ToList();
+            return Ok(contents);
         }
 
-        // Mesajı okundu olarak işaretleme
-        [HttpPost("read/{messageId}")]
-        public async Task<IActionResult> MarkAsRead(string messageId)
-        {
-            var message = await _messageRepository.GetMessageByIdAsync(messageId);
-            if (message == null)
-            {
-                return NotFound("Message not found");
-            }
-
-            message.IsRead = true;
-            await _messageRepository.UpdateMessageAsync(message);
-            return NoContent();
-        }
     }
 
 }
