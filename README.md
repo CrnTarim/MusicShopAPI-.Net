@@ -29,3 +29,5 @@ For the application interface ,visit the:
 - **Redis**: To improve performance, Redis is integrated as a caching mechanism. This reduces the need for repeated database queries and provides fast access to frequently used data. Redis has been implemented using Docker to ensure seamless deployment and management within the project.
 - **Docker**: The project uses Docker for the containerization of Redis,  other necessary services, ensuring a consistent environment across different development setups. This makes it easier to deploy and scale the application across different platforms.
 - **SingalR** :The project uses SignalR enables real-time data sharing between users, making the platform more interactive.
+- ![image](https://github.com/user-attachments/assets/5102f7f8-6341-43d8-b58b-fdddd5576754)
+
