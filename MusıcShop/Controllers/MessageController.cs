@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Data.Dto.InComing.CreationDto.Message;
+using MusicShop.Data.Dto.OutComing.Singer;
 using MusicShop.Data.Entities.UserInfo;
 using MusicShop.Infrastructure.Concrete;
 using MusicShop.Infrastructure.Concrete.HubConnection;
@@ -14,13 +15,16 @@ namespace MusıcShop.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-         private readonly IHubContext<ChatHub> _hubContext;
-         MessageRepository _messageRepository;
 
-        public MessageController(MessageRepository messageBusiness, IHubContext<ChatHub> hubContext)
+        MessageBusiness _messageBusiness;
+        ChatsBusiness _chatsBusiness;
+        ICacheService _cacheService;
+
+        public MessageController(MessageBusiness messageBusiness, ICacheService cacheService, ChatsBusiness chatsBusiness)
         {
-            _messageRepository = messageBusiness;
-            _hubContext = hubContext;
+            _messageBusiness = messageBusiness;
+            _cacheService = cacheService;
+            _chatsBusiness = chatsBusiness;
         }
 
 
@@ -36,18 +40,39 @@ namespace MusıcShop.Controllers
                 
             };
 
-            await _messageRepository.SaveMessage(message);
+            var chat = new Chats
+            {
+                FirstUserId = creationDto.SenderId,
+                SecondUserId = creationDto.ReceiverId,
+                Messages = new List<Message> { message }
+            };
+
+            await _messageBusiness.SaveMessage(message);
+
+            await _chatsBusiness.SaveChat(chat);
 
             return Ok(new { message = "Message Sent" });
 
         }
 
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<List<String>>> ReceiveMessage([FromRoute] string userId)
+        [HttpGet]
+        public async Task<ActionResult<List<String>>> ReceiveMessage(string userId, string receiverId)
         {
-            List<Message> messages = await _messageRepository.ReceiveMessages(userId);
+           /*
+            var cacheKey = "messages";
+            var cachedMessages = await _cacheService.GetAsync<List<string>>(cacheKey);
+
+            if (cachedMessages != null)
+            {
+                return Ok(cachedMessages);
+            }
+           */
+            List<Message> messages = await _messageBusiness.ReceiveMessages(userId,receiverId);
             List<string> contents = messages.Select(m => m.Content).ToList();
+
+            //var expirationTime = TimeSpan.FromMinutes(30);
+            //await _cacheService.SetAsync(cacheKey, contents, expirationTime);
             return Ok(contents);
         }
 

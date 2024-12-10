@@ -89,8 +89,9 @@ builder.Services.Configure<MongoDbSettings>(
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 builder.Services.AddScoped<LogService>();
 
+builder.Services.AddScoped<MessageBusiness>();
 
-builder.Services.AddScoped<MessageRepository>();
+builder.Services.AddScoped<ChatsBusiness>();
 
 
 builder.Services.AddSignalR();
