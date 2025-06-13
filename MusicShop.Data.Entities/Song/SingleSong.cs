@@ -1,4 +1,5 @@
 ﻿using MusicShop.Data.Entities.SingerInfo;
+using MusicShop.Data.Entities.UserInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace MusicShop.Data.Entities.Song
         public Singer Singer { get; set; } 
         
         public ICollection<SingleBeat> SingleBeats { get; set; }
+
+        public ICollection<UserFavouriteSong> UserFavouriteSongs { get; set; }
 
     }
 }

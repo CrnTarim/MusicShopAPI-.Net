@@ -12,8 +12,8 @@ using MusicShop.Data.Context.Context;
 namespace MusicShop.Data.Context.Migrations
 {
     [DbContext(typeof(MusicShopContext))]
-    [Migration("20240905172246_MusicShowUpdated")]
-    partial class MusicShowUpdated
+    [Migration("20241102164828_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,6 +155,74 @@ namespace MusicShop.Data.Context.Migrations
                     b.ToTable("SingleSongs");
                 });
 
+            modelBuilder.Entity("MusicShop.Data.Entities.UserInfo.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.UserInfo.UserFavouriteSong", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SingleSongId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SingleSongId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserFavouriteSongs");
+                });
+
             modelBuilder.Entity("MusicShop.Data.Entities.Song.SingleBeat", b =>
                 {
                     b.HasOne("MusicShop.Data.Entities.Song.Beat", "Beat")
@@ -185,6 +253,25 @@ namespace MusicShop.Data.Context.Migrations
                     b.Navigation("Singer");
                 });
 
+            modelBuilder.Entity("MusicShop.Data.Entities.UserInfo.UserFavouriteSong", b =>
+                {
+                    b.HasOne("MusicShop.Data.Entities.Song.SingleSong", "SingleSong")
+                        .WithMany("UserFavouriteSongs")
+                        .HasForeignKey("SingleSongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicShop.Data.Entities.UserInfo.User", "User")
+                        .WithMany("UserFavouriteSongs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SingleSong");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MusicShop.Data.Entities.SingerInfo.Singer", b =>
                 {
                     b.Navigation("SingleSongs");
@@ -198,6 +285,13 @@ namespace MusicShop.Data.Context.Migrations
             modelBuilder.Entity("MusicShop.Data.Entities.Song.SingleSong", b =>
                 {
                     b.Navigation("SingleBeats");
+
+                    b.Navigation("UserFavouriteSongs");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.UserInfo.User", b =>
+                {
+                    b.Navigation("UserFavouriteSongs");
                 });
 #pragma warning restore 612, 618
         }
