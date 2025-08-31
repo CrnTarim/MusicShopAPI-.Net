@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Dto.OutComing.Song
 {
-    public class SingleSongDto :BaseDto
+    public class CategoryDto:BaseDto
     {
-        public string SingerName { get; set; }
-        public Guid SingerId { get; set; }
         public string Name { get; set; }
-        public string Category { get; set; }
-        public int Price { get; set; }
     }
 }

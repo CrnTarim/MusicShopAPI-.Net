@@ -16,7 +16,9 @@ namespace MusicShop.Data.Entities.Song
 
         public int Price { get; set; }
 
-        public Guid SingerId { get; set; }  
+        public Guid SingerId { get; set; }
+
+        public string? SingerName { get; set; }
 
         public Singer Singer { get; set; } 
         

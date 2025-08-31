@@ -31,12 +31,23 @@ namespace MusıcShop.Controllers
         }
 
         [HttpPost]
-
         public async Task<ActionResult<SingleSong>> CreateSingleSong(CreationDtoForSingleSong singlesongDto)
         {
             var singlesong = _mapper.Map<SingleSong>(singlesongDto);
             await _business.AddAsync(singlesong);
             return Ok(singlesong);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteSingleSong(Guid id)
+        {
+            // V1: İş katmanında "GetByIdAsync" ve "DeleteAsync(entity)" varsa:
+            var existing = await _business.GetbyIdAsync(id);
+            if (existing is null)
+                return NotFound($"SingleSong not found. id={id}");
+
+            await _business.RemoveAsync(existing.Id);
+            return NoContent(); // 204
         }
 
 
@@ -48,6 +59,14 @@ namespace MusıcShop.Controllers
             var singlesDto = _mapper.Map<List<SingleSongDto>>(singles);
 
             return Ok(singlesDto);
+        }
+
+
+        [HttpGet("singers")]
+        public async Task<ActionResult<List<SingerDto>>> GetSingers()
+        {
+            var singers = await _business.GetSingerListAsync();
+            return Ok(singers);
         }
 
         [HttpGet("singer/{id}/singles")]
@@ -62,6 +81,8 @@ namespace MusıcShop.Controllers
 
             return Ok(songs);
         }
+
+
 
     }
 }

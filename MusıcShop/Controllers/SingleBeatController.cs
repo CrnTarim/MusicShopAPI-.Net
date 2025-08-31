@@ -19,14 +19,16 @@ namespace MusıcShop.Controllers
         
         private readonly ISingleBeatBusiness _business;
         private readonly IMapper _mapper;
+        private readonly MusicShopContext _context;
 
-        public SingleBeatController(ISingleBeatBusiness business, IMapper mapper)
+        public SingleBeatController(ISingleBeatBusiness business, IMapper mapper, MusicShopContext context)
         {
             _business = business;
-            _mapper = mapper;          
+            _mapper = mapper; 
+            _context = context;
         }
 
-        [HttpPost("/craetesinglebeat")]
+        [HttpPost]
         public async Task<ActionResult<SingleBeat>> CreateSingleBeat(CreationDtoForSingleBeat singlebeatDto)
         {
             var singlebeat = _mapper.Map<SingleBeat>(singlebeatDto);
@@ -34,12 +36,26 @@ namespace MusıcShop.Controllers
             return Ok(singlebeat);
         }
 
-        [HttpGet("/getsinglebeats")]
+        [HttpGet]
         public async Task<ActionResult<List<SingleBeatDto>>> GetSingleBeats()
         {
             var singlebeats = _business.GetAllAsync();
             var singlebeatdto = _mapper.Map<List<SingleBeatDto>>(singlebeats);
             return Ok(singlebeatdto);
+        }
+
+
+        [HttpGet("eager")]
+        public async Task<ActionResult<List<SingleBeat>>> GetSingleBeatEagerList()
+        {
+            var data = await _context.SingleBeats
+                                       .Include(sb => sb.SingleSong)                
+                                       .ThenInclude(ss => ss.Singer)            
+                                       .Include(sb => sb.Beat)                      
+                                       .AsNoTracking()
+                                       .ToListAsync();
+
+            return Ok(data);
         }
         
         [HttpGet("/getbybeatid/{Id}")]

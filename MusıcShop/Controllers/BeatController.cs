@@ -41,5 +41,6 @@ namespace MusıcShop.Controllers
             var beatDto = _mapper.Map<List<BeatDto>>(beats);
             return Ok(beatDto);
         }
+
     }
 }

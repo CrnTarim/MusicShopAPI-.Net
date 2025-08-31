@@ -1,4 +1,5 @@
 ﻿using MusicShop.Business.Interface;
+using MusicShop.Data.Dto.OutComing.Singer;
 using MusicShop.Data.Entities.Song;
 using MusicShop.Infrastructure.Interface;
 using System;
@@ -18,9 +19,16 @@ namespace MusicShop.Business.Concrete
             _singleSongRepository = singleSongRepository;
         }
 
+        public async Task<List<SingerDto>> GetSingerListAsync()
+        {
+           return await _singleSongRepository.GetSingerListAsync();
+        }
+
         public async Task<List<SingleSong>> GetSingerSongs(Guid Id)
         {
             return await _singleSongRepository.GetSingerSongs(Id);
         }
+
+        
     }
 }

@@ -73,6 +73,12 @@ builder.Services.AddScoped<ISingerRepository, SingerRepository>();
 builder.Services.AddScoped<LogService>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 
+
+builder.Services.AddScoped<PersonBusiness>();
+builder.Services.AddScoped<PersonRepository>();
+
+
+
 builder.Services.AddAutoMapper(typeof(BaseMapper<,,,>));
 
 

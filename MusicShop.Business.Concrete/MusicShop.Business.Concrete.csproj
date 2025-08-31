@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MusicShop.Business.Interface\MusicShop.Business.Interface.csproj" />
     <ProjectReference Include="..\MusicShop.Data.Entities\MusicShop.Data.Entities.csproj" />
+    <ProjectReference Include="..\MusicShop.Infrastructure.Concrete\MusicShop.Infrastructure.Concrete.csproj" />
     <ProjectReference Include="..\MusicShop.Infrastructure.Interface\MusicShop.Infrastructure.Interface.csproj" />
   </ItemGroup>
 

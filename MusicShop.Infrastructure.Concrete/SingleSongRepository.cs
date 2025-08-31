@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicShop.Data.Context.Context;
+using MusicShop.Data.Dto.OutComing.Singer;
+using MusicShop.Data.Dto.OutComing.Song;
 using MusicShop.Data.Entities.Song;
 using MusicShop.Infrastructure.Interface;
 using System;
@@ -21,10 +23,26 @@ namespace MusicShop.Infrastructure.Concrete
             _dbSet = _context.Set<SingleSong>();
         }
 
+        public Task<List<SingerDto>> GetSingerListAsync()
+        {
+            var singers = _dbSet.AsNoTracking().GroupBy(s => new { s.SingerId, s.Singer.Name })
+                                               .Select(g => new SingerDto { Id = g.Key.SingerId, Name = g.Key.Name })
+                                               .ToListAsync();
+
+            return singers;
+        }
+
         public async Task<List<SingleSong>> GetSingerSongs(Guid Id)
         {
             var songs = await _context.SingleSongs.Where(x => x.SingerId == Id).ToListAsync();
             return songs;
         }
+
     }
 }
+
+/* 
+SELECT category
+FROM SingleSongs
+GROUP BY category;
+ */

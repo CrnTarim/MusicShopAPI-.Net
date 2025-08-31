@@ -7,6 +7,7 @@ using MusicShop.Data.Context.Context;
 using MusicShop.Data.Dto.InComing.CreationDto.Singer;
 using MusicShop.Data.Dto.InComing.UpdateDto.Singer;
 using MusicShop.Data.Dto.OutComing.Singer;
+using MusicShop.Data.Dto.OutComing.Song;
 using MusicShop.Data.Entities.SingerInfo;
 using System.Text.Json;
 
@@ -22,11 +23,14 @@ namespace MusıcShop.Controllers
 
         private readonly ICacheService _cacheService;
 
-        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService) 
+        private readonly MusicShopContext _context;
+
+        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService, MusicShopContext context) 
         {
             _business = business;
             _mapper = mapper;
             _cacheService = cacheService;
+            _context = context;
         }
 
         [HttpPost]
@@ -111,7 +115,28 @@ namespace MusıcShop.Controllers
         }
 
 
+        [HttpGet("eager")]
+        public async Task<ActionResult<List<SingerEager>>> GetSingersEager()
+        {
 
+            var list = await _context.Singers.AsNoTracking()
+            .Select(s => new SingerEager
+            {
+                Id = s.Id,
+                Name = s.Name,
+                SingleSongs = s.SingleSongs
+                    .Select(ss => new SingleSongEager
+                    {
+                        Id = ss.Id,
+                        Name = ss.Name,
+                        Category = ss.Category,
+                        Price = ss.Price
+                    })
+                    .ToList()
+            })
+            .ToListAsync();
 
+            return Ok(list);
+        }
     }
 }
