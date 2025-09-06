@@ -28,7 +28,6 @@ namespace MusicShop.Business.Concrete
         {
             return await _singleSongRepository.GetSingerSongs(Id);
         }
-
         
     }
 }
