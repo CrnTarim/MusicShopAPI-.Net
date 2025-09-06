@@ -41,8 +41,3 @@ namespace MusicShop.Infrastructure.Concrete
     }
 }
 
-/* 
-SELECT category
-FROM SingleSongs
-GROUP BY category;
- */
