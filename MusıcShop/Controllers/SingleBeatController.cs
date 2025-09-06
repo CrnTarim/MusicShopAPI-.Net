@@ -19,9 +19,9 @@ namespace MusıcShop.Controllers
         
         private readonly ISingleBeatBusiness _business;
         private readonly IMapper _mapper;
-        private readonly MusicShopContext _context;
+        private readonly HBSContext _context;
 
-        public SingleBeatController(ISingleBeatBusiness business, IMapper mapper, MusicShopContext context)
+        public SingleBeatController(ISingleBeatBusiness business, IMapper mapper, HBSContext context)
         {
             _business = business;
             _mapper = mapper; 

@@ -11,7 +11,7 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public UserRepository(MusicShopContext context) : base(context)
+        public UserRepository(HBSContext context) : base(context)
         {
         }
     }

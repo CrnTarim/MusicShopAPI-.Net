@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicShop.Data.Entities.Hospital;
 using MusicShop.Data.Entities.SingerInfo;
 using MusicShop.Data.Entities.Song;
 using MusicShop.Data.Entities.UserInfo;
@@ -11,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Context.Context
 {
-    public class MusicShopContext : DbContext
+    public class HBSContext : DbContext
     {
-        public MusicShopContext(DbContextOptions<MusicShopContext> options) : base(options) { }
+        public HBSContext(DbContextOptions<HBSContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)//PROTECTED 
         {
@@ -35,6 +36,16 @@ namespace MusicShop.Data.Context.Context
         public DbSet<User> Users { get; set; }
 
         public DbSet<Person> Persons { get; set; }
+
+
+
+
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Provision> Provisions { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
+        public DbSet<ReportDiagnosis> ReportDiagnoses { get; set; }
 
 
     }

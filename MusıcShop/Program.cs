@@ -48,7 +48,7 @@ builder.Services.AddScoped<ICacheService, RedisCacheService>();
 
 
 //MSSQL configuration
-builder.Services.AddDbContext<MusicShopContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MusicShopContext")));
+builder.Services.AddDbContext<HBSContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("HBSContext")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

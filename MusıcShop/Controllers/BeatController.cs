@@ -14,11 +14,11 @@ namespace MusıcShop.Controllers
     [ApiController]
     public class BeatController : ControllerBase
     {
-        private readonly MusicShopContext _context;
+        private readonly HBSContext _context;
 
         private readonly IMapper _mapper;
 
-        public BeatController(MusicShopContext context, IMapper mapper)
+        public BeatController(HBSContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

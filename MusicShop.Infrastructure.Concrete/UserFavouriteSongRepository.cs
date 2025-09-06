@@ -14,10 +14,10 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class UserFavouriteSongRepository : GenericRepository<UserFavouriteSong>, IUserFavouriteSongRepository
     {
-        MusicShopContext _context;
+        HBSContext _context;
         private readonly DbSet<UserFavouriteSong> _dbSet;
 
-        public UserFavouriteSongRepository(MusicShopContext context) : base(context)
+        public UserFavouriteSongRepository(HBSContext context) : base(context)
         {
             _context = context;
             _dbSet = _context.Set<UserFavouriteSong>();

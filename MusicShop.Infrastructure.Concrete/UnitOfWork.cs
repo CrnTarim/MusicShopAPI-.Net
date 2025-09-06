@@ -10,9 +10,9 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly MusicShopContext _context;
+        private readonly HBSContext _context;
 
-        public UnitOfWork(MusicShopContext context)
+        public UnitOfWork(HBSContext context)
         {
             _context = context;
         }

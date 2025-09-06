@@ -14,10 +14,10 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class SingleSongRepository : GenericRepository<SingleSong>, ISingleSongRepository
     {
-        protected readonly MusicShopContext _context; 
+        protected readonly HBSContext _context; 
         private readonly DbSet<SingleSong> _dbSet;
 
-        public SingleSongRepository(MusicShopContext context):base(context)
+        public SingleSongRepository(HBSContext context):base(context)
         {
             _context = context;
             _dbSet = _context.Set<SingleSong>();

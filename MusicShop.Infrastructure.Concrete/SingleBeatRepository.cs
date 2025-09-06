@@ -12,10 +12,10 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class SingleBeatRepository : GenericRepository<SingleBeat>, ISingleBeatRepository
     {
-        protected readonly MusicShopContext _context;
+        protected readonly HBSContext _context;
         private readonly DbSet<SingleBeat> _dbSet;
 
-        public SingleBeatRepository(MusicShopContext context):base(context) 
+        public SingleBeatRepository(HBSContext context):base(context) 
         {
             _context = context;
             _dbSet = _context.Set<SingleBeat>();

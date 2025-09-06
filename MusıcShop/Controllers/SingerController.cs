@@ -23,9 +23,9 @@ namespace MusıcShop.Controllers
 
         private readonly ICacheService _cacheService;
 
-        private readonly MusicShopContext _context;
+        private readonly HBSContext _context;
 
-        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService, MusicShopContext context) 
+        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService, HBSContext context) 
         {
             _business = business;
             _mapper = mapper;

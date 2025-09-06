@@ -12,10 +12,10 @@ namespace MusicShop.Infrastructure.Concrete
 {
     public class PersonRepository:GenericRepository<Person>
     {
-        protected readonly MusicShopContext _context;
+        protected readonly HBSContext _context;
         private readonly DbSet<Person> _dbSet;
 
-        public PersonRepository(MusicShopContext context) : base(context)
+        public PersonRepository(HBSContext context) : base(context)
         {
             _context = context;
             _dbSet = _context.Set<Person>();

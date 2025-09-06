@@ -11,9 +11,9 @@ using MusicShop.Data.Context.Context;
 
 namespace MusicShop.Data.Context.Migrations
 {
-    [DbContext(typeof(MusicShopContext))]
-    [Migration("20250820153828_Person")]
-    partial class Person
+    [DbContext(typeof(HBSContext))]
+    [Migration("20250906181742_HBSDB")]
+    partial class HBSDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,199 @@ namespace MusicShop.Data.Context.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CityCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Diagnosis", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Diagnoses");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Hospital", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Hospitals");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Provision", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("HospitalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HospitalId");
+
+                    b.ToTable("Provisions");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Report", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProvisionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvisionId")
+                        .IsUnique();
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.ReportDiagnosis", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DiagnosisId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReportId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiagnosisId");
+
+                    b.HasIndex("ReportId")
+                        .IsUnique();
+
+                    b.ToTable("ReportDiagnoses");
+                });
 
             modelBuilder.Entity("MusicShop.Data.Entities.SingerInfo.Singer", b =>
                 {
@@ -141,6 +334,9 @@ namespace MusicShop.Data.Context.Migrations
 
                     b.Property<Guid>("SingerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SingerName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -262,6 +458,58 @@ namespace MusicShop.Data.Context.Migrations
                     b.ToTable("UserFavouriteSongs");
                 });
 
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Hospital", b =>
+                {
+                    b.HasOne("MusicShop.Data.Entities.Hospital.City", "City")
+                        .WithMany("Hospitals")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Provision", b =>
+                {
+                    b.HasOne("MusicShop.Data.Entities.Hospital.Hospital", "Hospital")
+                        .WithMany("Provisions")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospital");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Report", b =>
+                {
+                    b.HasOne("MusicShop.Data.Entities.Hospital.Provision", "Provision")
+                        .WithOne("Report")
+                        .HasForeignKey("MusicShop.Data.Entities.Hospital.Report", "ProvisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provision");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.ReportDiagnosis", b =>
+                {
+                    b.HasOne("MusicShop.Data.Entities.Hospital.Diagnosis", "Diagnosis")
+                        .WithMany("ReportDiagnoses")
+                        .HasForeignKey("DiagnosisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicShop.Data.Entities.Hospital.Report", "Report")
+                        .WithOne("ReportDiagnosis")
+                        .HasForeignKey("MusicShop.Data.Entities.Hospital.ReportDiagnosis", "ReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diagnosis");
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("MusicShop.Data.Entities.Song.SingleBeat", b =>
                 {
                     b.HasOne("MusicShop.Data.Entities.Song.Beat", "Beat")
@@ -309,6 +557,31 @@ namespace MusicShop.Data.Context.Migrations
                     b.Navigation("SingleSong");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.City", b =>
+                {
+                    b.Navigation("Hospitals");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Diagnosis", b =>
+                {
+                    b.Navigation("ReportDiagnoses");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Hospital", b =>
+                {
+                    b.Navigation("Provisions");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Provision", b =>
+                {
+                    b.Navigation("Report");
+                });
+
+            modelBuilder.Entity("MusicShop.Data.Entities.Hospital.Report", b =>
+                {
+                    b.Navigation("ReportDiagnosis");
                 });
 
             modelBuilder.Entity("MusicShop.Data.Entities.SingerInfo.Singer", b =>
