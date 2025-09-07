@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Dto.InComing.UpdateDto.Hospital
 {
-    public class UpdateDtoForCity
+    public class UpdateDtoForCity : BaseDto
     {
         public int CityCode { get; set; }
         public string CityName { get; set; }

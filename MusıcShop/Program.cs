@@ -36,14 +36,7 @@ builder.Services.AddCors(options => {
         });
 });
 
-// Redis configuration
-builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-{
-    var configurationOptions = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
-    return ConnectionMultiplexer.Connect(configurationOptions);
-});
 
-builder.Services.AddScoped<ICacheService, RedisCacheService>();
 
 
 

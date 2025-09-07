@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicShop.Data.Entities.Hospital;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Dto.InComing.CreationDto.Hospital
 {
-    public class CreationDtoForHospital: BaseDto
+    public class CreationDtoForReport: BaseDto
     {
         public int Code { get; set; }
-        public string Name { get; set; }
 
-        public Guid CityId { get; set; }
+        public Guid ProvisionId { get; set; }
     }
 }

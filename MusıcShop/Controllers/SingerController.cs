@@ -21,15 +21,15 @@ namespace MusıcShop.Controllers
 
         private readonly IMapper _mapper;
 
-        private readonly ICacheService _cacheService;
+       
 
         private readonly HBSContext _context;
 
-        public SingerController(ISingerBusiness business, IMapper mapper, ICacheService cacheService, HBSContext context) 
+        public SingerController(ISingerBusiness business, IMapper mapper, HBSContext context) 
         {
             _business = business;
             _mapper = mapper;
-            _cacheService = cacheService;
+         
             _context = context;
         }
 
@@ -80,7 +80,7 @@ namespace MusıcShop.Controllers
 
         }
 
-        /*
+
         [HttpGet]
         public async Task<ActionResult<List<SingerDto>>> GetSingers()
         {
@@ -90,29 +90,8 @@ namespace MusıcShop.Controllers
 
             return Ok(singerDtos);
         }
-        */
 
-        [HttpGet]
-        public async Task<ActionResult<List<SingerDto>>> GetSingers()
-        {
-           
-            var cacheKey = "singersList";
-            var cachedSingers = await _cacheService.GetAsync<List<SingerDto>>(cacheKey);
 
-            if (cachedSingers != null)
-            {
-                return Ok(cachedSingers);
-            }
-          
-            var singers = _business.GetAllAsync().ToList();   
-            var singerDtos = _mapper.Map<List<SingerDto>>(singers);
-
-            // Veriyi cache'e kaydet
-            var expirationTime = TimeSpan.FromMinutes(60); 
-            await _cacheService.SetAsync(cacheKey, singerDtos, expirationTime);
-
-            return Ok(singerDtos);
-        }
 
 
         [HttpGet("eager")]

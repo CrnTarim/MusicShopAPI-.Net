@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Dto.InComing.CreationDto.Hospital
 {
-    public class CreationDtoForCity : BaseDto
+    public class CreationDtoForReportDiagnosis:BaseDto
     {
-        public int CityCode { get; set; }
-        public string CityName { get; set; }
+        public Guid ReportId { get; set; }
+        public Guid DiagnosisId { get; set; }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Data.Dto.InComing.UpdateDto.Hospital
 {
-    public class UpdateDtoForHospital : BaseDto
+    public class UpdateDtoForDiagnosis: BaseDto 
     {
-        public int Code { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
+
     }
 }

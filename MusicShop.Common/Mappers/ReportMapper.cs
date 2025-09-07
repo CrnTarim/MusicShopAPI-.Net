@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MusicShop.Common.Mappers
 {
-    public class HospitalMapper : BaseMapper<Hospital, HospitalDto, UpdateDtoForHospital, CreationDtoForHospital>
+    public class ReportMapper : BaseMapper<Report, ReportDto, UpdateDtoForReport, CreationDtoForReport>
     {
     }
 }
