@@ -51,7 +51,7 @@ namespace MusıcShop.Controllers
             var data = await _business .GetAllAsync()              
                 .Select(rd => new ReportDiagnosisEager
                 {
-                    ReportDiagnosisId = rd.Id,
+                    Id = rd.Id,
                     ReportCode = rd.Report.Code,
                     ProvisionCode = rd.Report.Provision.Code,
 
@@ -84,7 +84,7 @@ namespace MusıcShop.Controllers
                 .Where(rd => rd.Id == id)
                 .Select(rd => new ReportDiagnosisEager
                 {
-                    ReportDiagnosisId = rd.Id,
+                    Id = rd.Id,
                     ReportCode = rd.Report.Code,
                     ProvisionCode = rd.Report.Provision.Code,
 

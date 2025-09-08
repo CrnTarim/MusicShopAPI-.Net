@@ -29,7 +29,7 @@ namespace MusıcShop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Hospital>> CreateBeat(CreationDtoForHospital hospitalDto)
+        public async Task<ActionResult<Hospital>> CreateHospital(CreationDtoForHospital hospitalDto)
         {
             var hospital = _mapper.Map<Hospital>(hospitalDto);
             await _context.AddAsync(hospital);
@@ -39,11 +39,19 @@ namespace MusıcShop.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<List<HospitalDto>>> GetBeats()
+        public async Task<ActionResult<List<HospitalDto>>> GetHospital()
         {
             var list = await _business.GetAllAsync().ToListAsync();
             var dtos = _mapper.Map<List<HospitalDto>>(list);
             return Ok(dtos);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<HospitalDto>> GetHospitalById(Guid id)
+        {
+            var report = await _business.GetbyIdAsync(id);
+            var reportdto = _mapper.Map<HospitalDto>(report);
+            return Ok(reportdto);
         }
     }
 }

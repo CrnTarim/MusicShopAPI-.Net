@@ -32,21 +32,30 @@ namespace MusıcShop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<City>> CreateBeat(CreationDtoForCity beatDto)
+        public async Task<ActionResult<CityDto>> CreateCityt(CreationDtoForCity citydto)
         {
-            var beat = _mapper.Map<Beat>(beatDto);
-            await _context.AddAsync(beat);
+            var city = _mapper.Map<Beat>(citydto);
+            await _context.AddAsync(city);
             await _context.SaveChangesAsync();
-            return Ok(beat);
+            return Ok(citydto);
         }
 
         [HttpGet]
 
-        public async Task<ActionResult<List<CityDto>>> GetBeats()
+        public async Task<ActionResult<List<CityDto>>> GetCity()
         {
             var list = await _business.GetAllAsync().ToListAsync();           
             var dtos = _mapper.Map<List<CityDto>>(list);
             return Ok(dtos);
+        }
+
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<CityDto>> GetCitytById(Guid id)
+        {
+            var report = await _business.GetbyIdAsync(id);
+            var reportdto = _mapper.Map<CityDto>(report);
+            return Ok(reportdto);
         }
     }
 }

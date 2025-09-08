@@ -37,5 +37,39 @@ namespace MusıcShop.Controllers
             await _business.AddAsync(reportEntity);
             return Ok(reportEntity);
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ReportDto>> GetReportById(Guid id)
+        {
+            var report = await _business.GetbyIdAsync(id);
+            var reportdto = _mapper.Map<ReportDto>(report);
+            return Ok(reportdto);
+        }
+
+        [HttpGet("eager")]
+        public async Task<ActionResult<List<ReportEager>>> GetAllInformation()
+        {
+            var data = await _business.GetAllAsync()
+                .Select(r => new ReportEager
+                {
+                    Id = r.Id,
+                    ReportCode = r.Code,
+                    ProvisionCode = r.Provision.Code,
+
+                    HospitalId = r.Provision.Hospital.Id,
+                    HospitalCode = r.Provision.Hospital.Code,
+                    HospitalName = r.Provision.Hospital.Name,
+
+                    CityId = r.Provision.Hospital.City.Id,
+                    CityCode = r.Provision.Hospital.City.CityCode,
+                    CityName = r.Provision.Hospital.City.CityName,
+
+                    ReportCreated = r.CreatedDate
+                })
+                .OrderByDescending(x => x.ReportCode)
+                .ToListAsync();
+
+            return Ok(data);
+        }
     }
 }
