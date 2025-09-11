@@ -42,17 +42,24 @@ namespace MusıcShop.Controllers
             await _business.AddAsync(entity);
             return Ok(entity);
         }
-        
+
         //Entity materialize etmeden, LINQ projection ile DTO’yu flatten edip denormalize
         //bir read model çıkarıyoruz; Include yerine server-side projection var
         [HttpGet("eager")]
         public async Task<ActionResult<List<ReportDiagnosisEager>>> GetAllInformation()
         {
-            var data = await _business .GetAllAsync()              
+            
+            var query = _business.GetAllAsync(); 
+            var data = await query
+              
                 .Select(rd => new ReportDiagnosisEager
                 {
                     Id = rd.Id,
+
+                    ReportId = rd.Report.Id,
                     ReportCode = rd.Report.Code,
+
+                    ProvisionId = rd.Report.Provision.Id,
                     ProvisionCode = rd.Report.Provision.Code,
 
                     HospitalId = rd.Report.Provision.Hospital.Id,
@@ -75,37 +82,40 @@ namespace MusıcShop.Controllers
             return Ok(data);
         }
 
+
         [HttpGet("eager/{id:guid}")]
         public async Task<ActionResult<ReportDiagnosisEager>> GetEagerById(Guid id)
         {
-            var dto = await _business
-                .GetAllAsync()                        // IQueryable<ReportDiagnosis>
-                .AsNoTracking()
-                .Where(rd => rd.Id == id)
-                .Select(rd => new ReportDiagnosisEager
-                {
-                    Id = rd.Id,
-                    ReportCode = rd.Report.Code,
-                    ProvisionCode = rd.Report.Provision.Code,
+            var data =  _business.GetAllAsync();
+            var dto = await data.Where(rd => rd.Id == id).Select(rd => new ReportDiagnosisEager
+            {
+                Id = rd.Id,
 
-                    HospitalId = rd.Report.Provision.Hospital.Id,
-                    HospitalCode = rd.Report.Provision.Hospital.Code,
-                    HospitalName = rd.Report.Provision.Hospital.Name,
+                ReportId = rd.Report.Id,
+                ReportCode = rd.Report.Code,
 
-                    CityId = rd.Report.Provision.Hospital.City.Id,
-                    CityCode = rd.Report.Provision.Hospital.City.CityCode,
-                    CityName = rd.Report.Provision.Hospital.City.CityName,
+                ProvisionId = rd.Report.Provision.Id,
+                ProvisionCode = rd.Report.Provision.Code,
 
-                    DiagnosisId = rd.Diagnosis.Id,
-                    DiagnosisCode = rd.Diagnosis.Code,
-                    DiagnosisName = rd.Diagnosis.Name,
+                HospitalId = rd.Report.Provision.Hospital.Id,
+                HospitalCode = rd.Report.Provision.Hospital.Code,
+                HospitalName = rd.Report.Provision.Hospital.Name,
 
-                    ReportCreated = rd.Report.CreatedDate
-                })
-                .FirstOrDefaultAsync();
+                CityId = rd.Report.Provision.Hospital.City.Id,
+                CityCode = rd.Report.Provision.Hospital.City.CityCode,
+                CityName = rd.Report.Provision.Hospital.City.CityName,
 
-            return dto is null ? NotFound() : Ok(dto);
+                DiagnosisId = rd.Diagnosis.Id,
+                DiagnosisCode = rd.Diagnosis.Code,
+                DiagnosisName = rd.Diagnosis.Name,
+
+                ReportCreated = rd.Report.CreatedDate
+            }).FirstOrDefaultAsync();
+
+            return Ok(dto);
         }
+
+      
 
     }
 }

@@ -14,12 +14,14 @@ namespace MusıcShop.Controllers
     public class ReportController : ControllerBase
     {
         private readonly IBusiness<Report> _business;
+        private readonly IBusiness<ReportDiagnosis> _rpbusiness;
         private readonly IMapper _mapper;
 
-        public ReportController(IBusiness<Report> business, IMapper mapper)
+        public ReportController(IBusiness<Report> business, IMapper mapper, IBusiness<ReportDiagnosis> rpbusiness)
         {
             _business = business;
             _mapper = mapper;
+            _rpbusiness = rpbusiness;
         }
 
         [HttpGet]
@@ -71,5 +73,12 @@ namespace MusıcShop.Controllers
 
             return Ok(data);
         }
+
+        //[HttpDelete("{id:guid}")]
+        //public async Task<IActionResult> DeleteReport(Guid id)
+        //{
+        //    var report = await _business.GetbyIdAsync(id);
+        //}
     }
+    
 }
