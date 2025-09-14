@@ -56,6 +56,8 @@ namespace MusıcShop.Controllers
                 {
                     Id = r.Id,
                     ReportCode = r.Code,
+
+                    ProvisionId = r.Provision.Id,
                     ProvisionCode = r.Provision.Code,
 
                     HospitalId = r.Provision.Hospital.Id,
@@ -66,7 +68,7 @@ namespace MusıcShop.Controllers
                     CityCode = r.Provision.Hospital.City.CityCode,
                     CityName = r.Provision.Hospital.City.CityName,
 
-                    ReportCreated = r.CreatedDate
+                    ReportCreated = r.CreatedDate.ToString("dd.MM.yyyy")
                 })
                 .OrderByDescending(x => x.ReportCode)
                 .ToListAsync();

@@ -68,6 +68,11 @@ namespace MusicShop.Infrastructure.Concrete
            return await _dbSet.FirstAsync(predicate);
         }
 
+        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {        
+            return await _dbSet.SingleOrDefaultAsync(predicate);
+        }
+
         public IQueryable<T> GetAll()
         {
             return _dbSet.Where(x=> x.Status == 1);
@@ -77,5 +82,6 @@ namespace MusicShop.Infrastructure.Concrete
         {
            return _dbSet.Where(expression);
         }
+
     }
 }

@@ -19,12 +19,14 @@ namespace MusıcShop.Controllers
     public class ReportDiagnosisController : ControllerBase
     {
         private readonly IBusiness<ReportDiagnosis> _business;
+        private readonly IBusiness<Report> _reportbusiness;
         private readonly IMapper _mapper;
 
-        public ReportDiagnosisController(IBusiness<ReportDiagnosis> business, IMapper mapper)
+        public ReportDiagnosisController(IBusiness<ReportDiagnosis> business, IBusiness<Report> reportbusiness, IMapper mapper)
         {
             _business = business;
             _mapper = mapper;
+            _reportbusiness = reportbusiness;
         }
 
         [HttpGet]
@@ -115,7 +117,20 @@ namespace MusıcShop.Controllers
             return Ok(dto);
         }
 
-      
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeletebyReportId(Guid id)
+        {
+            var reportdiagnosis=await _business.SingleOrDefaultAsync(rd => rd.ReportId == id);
+            if (reportdiagnosis != null)
+            {
+                await _business.RemoveAsync(reportdiagnosis.Id);
+                return Ok();
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
 
     }
 }

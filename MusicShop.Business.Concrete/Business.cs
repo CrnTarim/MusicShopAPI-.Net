@@ -1,4 +1,5 @@
-﻿using MusicShop.Business.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicShop.Business.Interface;
 using MusicShop.Infrastructure.Interface;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,11 @@ namespace MusicShop.Business.Concrete
         public async Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
             return await _repository.FirstOrDefault(predicate);
+        }
+
+        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _repository.SingleOrDefaultAsync(predicate);
         }
     }
 }

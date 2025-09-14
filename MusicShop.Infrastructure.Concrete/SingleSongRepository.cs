@@ -37,6 +37,5 @@ namespace MusicShop.Infrastructure.Concrete
             var songs = await _context.SingleSongs.Where(x => x.SingerId == Id).ToListAsync();
             return songs;
         }
-
     }
 }

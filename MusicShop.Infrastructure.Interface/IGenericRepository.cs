@@ -26,5 +26,7 @@ namespace MusicShop.Infrastructure.Interface
     
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);
 
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
+      
     }
 }

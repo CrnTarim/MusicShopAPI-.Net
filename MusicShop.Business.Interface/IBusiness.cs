@@ -25,5 +25,7 @@ namespace MusicShop.Business.Interface
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
 
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);
+
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
     }
 }

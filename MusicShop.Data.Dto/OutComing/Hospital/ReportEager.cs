@@ -22,6 +22,6 @@ namespace MusicShop.Data.Dto.OutComing.Hospital
         public int CityCode { get; set; }
         public string CityName { get; set; } = default!;
 
-        public DateTime ReportCreated { get; set; }
+        public string ReportCreated { get; set; }
     }
 }
