@@ -12,6 +12,6 @@ namespace MusicShop.Data.Entities.Hospital
         public string CityName { get; set; }
 
 
-        public ICollection<Hospital> Hospitals { get; set; }
+        public ICollection<Hospital> Hospitals { get; set; } = new List<Hospital>();
     }
 }

@@ -16,8 +16,8 @@ namespace MusicShop.Data.Entities.Hospital
         public City City { get; set; }
 
 
-        public ICollection<Provision> Provisions { get; set; }
+        public ICollection<Provision> Provisions { get; set; } = new List<Provision>();
 
-      
+
     }
 }

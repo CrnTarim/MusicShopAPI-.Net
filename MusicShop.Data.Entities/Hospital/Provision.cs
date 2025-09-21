@@ -12,7 +12,7 @@ namespace MusicShop.Data.Entities.Hospital
 
 
         public Guid HospitalId { get; set; }
-        public Hospital Hospital { get; set; } = default!;
+        public Hospital Hospital { get; set; } = null;
 
 
 

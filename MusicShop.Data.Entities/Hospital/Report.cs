@@ -13,8 +13,21 @@ namespace MusicShop.Data.Entities.Hospital
 
         public Guid ProvisionId { get; set; }
         public Provision Provision { get; set; }
-
+        public ReportState State { get; set; } = ReportState.Pending;
 
         public ReportDiagnosis? ReportDiagnosis { get; set; }
+        public ReportDecision? ReportDecision { get; set; }
+
+
+    }
+
+    public enum ReportState
+    {
+        Pending = 1, // Beklemede
+        BashekimApproved = 2, // Başhekim onaylı
+        MsbApproved = 3, // MSB onaylı
+        PertemApproved = 4, // PERTEM onaylı
+        ZeyilInProgress = 5, // Zeyil işlemlerinde
+        ManualZeyilCompleted = 6  // Manuel zeyil tamamlandı
     }
 }

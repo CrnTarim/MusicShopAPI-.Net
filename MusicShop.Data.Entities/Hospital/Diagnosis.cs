@@ -12,7 +12,7 @@ namespace MusicShop.Data.Entities.Hospital
         public string Name { get; set; }
 
 
-        public ICollection<ReportDiagnosis> ReportDiagnoses { get; set; }
+        public ICollection<ReportDiagnosis> ReportDiagnoses { get; set; } = new List<ReportDiagnosis>();
 
     }
 }
