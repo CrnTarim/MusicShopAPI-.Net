@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicShop.Data.Entities.Hospital;
-using MusicShop.Data.Entities.SingerInfo;
-using MusicShop.Data.Entities.Song;
+
 using MusicShop.Data.Entities.UserInfo;
 using System;
 using System.Collections.Generic;
@@ -23,18 +22,8 @@ namespace MusicShop.Data.Context.Context
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<SingleSong> SingleSongs { get; set; }
-
-        public DbSet<Singer> Singers { get; set; }
-
-        public DbSet<SingleBeat> SingleBeats { get; set; }
-
-        public DbSet<Beat> Beats { get; set; }
-
-        public DbSet<UserFavouriteSong> UserFavouriteSongs { get; set; }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<Person> Persons { get; set; }
 
 

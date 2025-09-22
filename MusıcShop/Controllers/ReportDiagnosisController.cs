@@ -6,8 +6,6 @@ using MusicShop.Data.Entities.Hospital;
 using Microsoft.EntityFrameworkCore;
 using MusicShop.Data.Dto.OutComing.Hospital;
 using MusicShop.Data.Dto.InComing.CreationDto.Hospital;
-using MusicShop.Data.Dto.OutComing.Singer;
-using MusicShop.Data.Dto.OutComing.Song;
 using SharpCompress.Common;
 using StackExchange.Redis;
 using System.Drawing;

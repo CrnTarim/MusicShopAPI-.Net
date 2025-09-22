@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicShop.Data.Context.Context;
-using MusicShop.Data.Entities.Song;
 using MusicShop.Data.Entities.UserInfo;
 using System;
 using System.Collections.Generic;

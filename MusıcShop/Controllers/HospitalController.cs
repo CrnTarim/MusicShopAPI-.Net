@@ -6,7 +6,6 @@ using MusicShop.Data.Context.Context;
 using MusicShop.Data.Dto.InComing.CreationDto.Hospital;
 using MusicShop.Data.Dto.OutComing.Hospital;
 using MusicShop.Data.Entities.Hospital;
-using MusicShop.Data.Entities.Song;
 using Microsoft.EntityFrameworkCore;
 
 namespace MusıcShop.Controllers

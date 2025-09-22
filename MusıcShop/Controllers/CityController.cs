@@ -6,11 +6,11 @@ using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Data.Context.Context;
 using MusicShop.Data.Dto.InComing.CreationDto.Hospital;
-using MusicShop.Data.Dto.InComing.CreationDto.Song;
+
 using MusicShop.Data.Dto.OutComing.Hospital;
-using MusicShop.Data.Dto.OutComing.Song;
+
 using MusicShop.Data.Entities.Hospital;
-using MusicShop.Data.Entities.Song;
+
 
 namespace MusıcShop.Controllers
 {
@@ -34,7 +34,7 @@ namespace MusıcShop.Controllers
         [HttpPost]
         public async Task<ActionResult<CityDto>> CreateCityt(CreationDtoForCity citydto)
         {
-            var city = _mapper.Map<Beat>(citydto);
+            var city = _mapper.Map<City>(citydto);
             await _context.AddAsync(city);
             await _context.SaveChangesAsync();
             return Ok(citydto);

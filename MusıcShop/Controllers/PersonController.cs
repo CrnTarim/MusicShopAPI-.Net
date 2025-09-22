@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
-using MusicShop.Data.Dto.InComing.CreationDto.Singer;
+
 using MusicShop.Data.Dto.InComing.CreationDto.User;
-using MusicShop.Data.Dto.OutComing.Song;
+
 using MusicShop.Data.Dto.OutComing.User;
-using MusicShop.Data.Entities.SingerInfo;
+
 using MusicShop.Data.Entities.UserInfo;
 
 namespace MusıcShop.Controllers

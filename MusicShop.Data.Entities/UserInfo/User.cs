@@ -1,4 +1,4 @@
-﻿using MusicShop.Data.Entities.Song;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,6 @@ namespace MusicShop.Data.Entities.UserInfo
         public string UserName { get; set; }
         public string Email { get; set; }
         
-        public ICollection<UserFavouriteSong> UserFavouriteSongs { get; set; }
 
         public string PasswordHash { get; set; }
       

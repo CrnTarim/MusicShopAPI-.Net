@@ -51,18 +51,6 @@ builder.Services.AddScoped(typeof(IBusiness<>), typeof(Business<>));
 builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 builder.Services.AddScoped(typeof(IUserBusiness), typeof(UserBusiness));
 
-builder.Services.AddScoped(typeof(IUserFavouriteSongRepository), typeof(UserFavouriteSongRepository));
-builder.Services.AddScoped(typeof(IUserFavouriteSongBusiness), typeof(UserFavouriteSongBusiness));
-
-builder.Services.AddScoped<ISingleSongBusiness, SingleSongBusiness>();
-builder.Services.AddScoped<ISingleSongRepository, SingleSongRepository>();
-
-builder.Services.AddScoped<ISingleBeatBusiness, SingleBeatBusiness>();
-builder.Services.AddScoped<ISingleBeatRepository, SingleBeatRepository>();
-
-builder.Services.AddScoped<ISingerBusiness, SingerBusiness>();
-builder.Services.AddScoped<ISingerRepository, SingerRepository>();
-
 builder.Services.AddScoped<LogService>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 

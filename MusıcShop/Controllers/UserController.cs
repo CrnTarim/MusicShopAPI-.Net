@@ -7,11 +7,11 @@ using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Common.Mappers;
 using MusicShop.Data.Dto.InComing.CreationDto.User;
-using MusicShop.Data.Dto.OutComing.Song;
+
 using MusicShop.Data.Dto.OutComing.User;
 using MusicShop.Data.Entities.Authorization;
 using MusicShop.Data.Entities.Logging;
-using MusicShop.Data.Entities.Song;
+
 using MusicShop.Data.Entities.UserInfo;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

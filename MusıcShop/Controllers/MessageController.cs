@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using MusicShop.Business.Concrete;
 using MusicShop.Business.Interface;
 using MusicShop.Data.Dto.InComing.CreationDto.Message;
-using MusicShop.Data.Dto.OutComing.Singer;
+
 using MusicShop.Data.Entities.UserInfo;
 using MusicShop.Infrastructure.Concrete;
 using MusicShop.Infrastructure.Concrete.HubConnection;

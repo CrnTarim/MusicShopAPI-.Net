@@ -1,5 +1,4 @@
 ﻿using MusicShop.Business.Interface;
-using MusicShop.Data.Entities.SingerInfo;
 using MusicShop.Data.Entities.UserInfo;
 using MusicShop.Infrastructure.Concrete;
 using MusicShop.Infrastructure.Interface;
